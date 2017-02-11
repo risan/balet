@@ -10,7 +10,7 @@ NC='\033[0m'
 # Command arguments.
 WEBSITE_TYPE="$1"       # Website type: html, html-ssl, php, php-ssl.
 WEBSITE_NAME="$2"       # The website domain.
-RELATIVE_ROOT_DIR="$3"  # The relative path to the root directory.
+WEBSITE_RELATIVE_ROOT_DIR="$3"  # The relative path to the root directory.
 
 CURRENT_DIR="$PWD"
 BALET_DIR="`dirname $0`"
@@ -51,22 +51,22 @@ if [ -f $WEBSITE_CONFIG_FILE ]; then
 fi
 
 # Get root directory.
-if [ -z $RELATIVE_ROOT_DIR ]; then
+if [ -z $WEBSITE_RELATIVE_ROOT_DIR ]; then
   if [ -d "$CURRENT_DIR/public" ]; then
-    ROOT_DIR="$CURRENT_DIR/public"
+    WEBSITE_ROOT_DIR="$CURRENT_DIR/public"
   elif [ -d "$CURRENT_DIR/html" ]; then
-    ROOT_DIR="$CURRENT_DIR/html"
+    WEBSITE_ROOT_DIR="$CURRENT_DIR/html"
   else
-    ROOT_DIR="$CURRENT_DIR"
+    WEBSITE_ROOT_DIR="$CURRENT_DIR"
   fi
 else
-  ROOT_DIR="$CURRENT_DIR/$RELATIVE_ROOT_DIR"
+  WEBSITE_ROOT_DIR="$CURRENT_DIR/$WEBSITE_RELATIVE_ROOT_DIR"
 fi
 
 # Copy and configure the website template configuration file.
 echo "${CYAN}Creating website configuration file for: $WEBSITE_NAME...${NC}"
 cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"
-sed -i '' "s~ROOT_DIR~$ROOT_DIR~g" $WEBSITE_CONFIG_FILE
+sed -i '' "s~WEBSITE_ROOT_DIR~$WEBSITE_ROOT_DIR~g" $WEBSITE_CONFIG_FILE
 sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
 
