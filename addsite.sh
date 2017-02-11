@@ -4,6 +4,7 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
 NC='\033[0m'
 
 # Command arguments.
@@ -63,14 +64,19 @@ else
 fi
 
 # Copy and configure the website template configuration file.
+echo "${CYAN}Creating website configuration file for: $WEBSITE_NAME...${NC}"
 cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"
 sed -i '' "s~ROOT_DIR~$ROOT_DIR~g" $WEBSITE_CONFIG_FILE
 sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
 
 # Update the hosts file.
+echo "${CYAN}Updating hosts file...${NC}"
 sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE  # Remove the domain if any.
 echo "127.0.0.1 $WEBSITE_NAME" >> $HOSTS_FILE       # Add the domain to the hosts file.
 
 # Reload nginx.
+echo "${CYAN}Restarting Nginx server...${NC}"
 nginx -s reload
+
+echo "${GREEN}The $WEBSITE_NAME website is created \xE2\x9C\x94${NC}"
