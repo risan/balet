@@ -11,8 +11,8 @@ server {
     server_name WEBSITE_NAME;
 
     include conf.d/directive-only/ssl.conf;
-    ssl_certificate SSL_CERTIFICATE_FILE;
-    ssl_certificate_key SSL_PRIVATE_KEY_FILE;
+    ssl_certificate WEBSITE_SSL_CERTIFICATE_FILE;
+    ssl_certificate_key WEBSITE_SSL_PRIVATE_KEY_FILE;
 
     access_log off;
     error_log WEBSITE_ERROR_LOG_FILE;
