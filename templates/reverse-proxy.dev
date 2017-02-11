@@ -1,0 +1,15 @@
+server {
+    listen 80;
+    charset utf-8;
+    server_name WEBSITE_NAME;
+
+    access_log off;
+    error_log WEBSITE_ERROR_LOG_FILE;
+
+    location / {
+        proxy_pass http://localhost:PROXY_PORT;
+    }
+
+    include conf.d/basic.conf;
+    include conf.d/location/reverse-proxy.conf
+}
