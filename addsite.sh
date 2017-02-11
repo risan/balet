@@ -60,5 +60,8 @@ else
   ROOT_DIR="$CURRENT_DIR/$RELATIVE_ROOT_DIR"
 fi
 
+# Copy the website template configuration file.
+cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"
+
 echo $ROOT_DIR
 exit 1

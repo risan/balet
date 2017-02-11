@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    charset utf-8;
+    root ROOT_DIR;
+    server_name WEBSITE_NAME;
+
+    access_log off;
+    error_log logs/WEBSITE_NAME-error.log;
+
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    include conf.d/basic.conf;
+}
