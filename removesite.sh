@@ -34,12 +34,17 @@ if [ ! -f $WEBSITE_CONFIG_FILE ]; then
 fi
 
 # Delete the configuration file, log, and certificate directory.
+echo "${CYAN}Removing website configuration file for: $WEBSITE_NAME...${NC}"
 rm "$WEBSITE_CONFIG_FILE"
 rm "$WEBSITE_ERROR_LOG_FILE"
 rm -Rf "$WEBSITE_SSL_DIR"
 
 # Remove the domain from the hosts file.
+echo "${CYAN}Updating hosts file...${NC}"
 sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE
 
 # Reload nginx.
+echo "${CYAN}Restarting Nginx server...${NC}"
 nginx -s reload
+
+echo "${GREEN}The $WEBSITE_NAME website is removed \xE2\x9C\x94${NC}"
