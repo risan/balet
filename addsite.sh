@@ -65,5 +65,9 @@ cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"                # Copy the con
 sed -i '' "s~ROOT_DIR~$ROOT_DIR~g" $WEBSITE_CONFIG_FILE           # Replace the root directory.
 sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE   # Replace the website name.
 
+# Update the hosts file.
+sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE  # Remove the domain if any.
+echo "127.0.0.1 $WEBSITE_NAME" >> $HOSTS_FILE       # Add the domain to the hosts file.
+
 echo $ROOT_DIR
 exit 1
