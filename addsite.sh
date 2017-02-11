@@ -65,7 +65,7 @@ else
 fi
 
 # Generating certificate files.
-if [ "$WEBSITE_TYPE" == "html-ssl" ]; then
+if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ]; then
   SYSTEM_KEYCHAIN_PATH="/Library/Keychains/System.keychain"
   SSL_DH_PARAM_FILE="$SSL_DIR/dhparam.pem"
   WEBSITE_SSL_DIR="$SSL_DIR/$WEBSITE_NAME"
@@ -108,7 +108,7 @@ sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
 
 # Update the certificate and private key file.
-if [ "$WEBSITE_TYPE" == "html-ssl" ]; then
+if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ]; then
   sed -i '' "s~WEBSITE_SSL_CERTIFICATE_FILE~$WEBSITE_SSL_CERTIFICATE_FILE~g" $WEBSITE_CONFIG_FILE
   sed -i '' "s~WEBSITE_SSL_PRIVATE_KEY_FILE~$WEBSITE_SSL_PRIVATE_KEY_FILE~g" $WEBSITE_CONFIG_FILE
 fi
