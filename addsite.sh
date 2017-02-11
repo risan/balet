@@ -107,6 +107,12 @@ sed -i '' "s~WEBSITE_ROOT_DIR~$WEBSITE_ROOT_DIR~g" $WEBSITE_CONFIG_FILE
 sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
 
+# Update the certificate and private key file.
+if [ "$WEBSITE_TYPE" == "html-ssl" ]; then
+  sed -i '' "s~WEBSITE_SSL_CERTIFICATE_FILE~$WEBSITE_SSL_CERTIFICATE_FILE~g" $WEBSITE_CONFIG_FILE
+  sed -i '' "s~WEBSITE_SSL_PRIVATE_KEY_FILE~$WEBSITE_SSL_PRIVATE_KEY_FILE~g" $WEBSITE_CONFIG_FILE
+fi
+
 # Update the hosts file.
 echo "${CYAN}Updating the hosts file...${NC}"
 sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE  # Remove the domain if any.
