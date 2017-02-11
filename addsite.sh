@@ -16,6 +16,7 @@ CURRENT_DIR="$PWD"
 BALET_DIR="`dirname $0`"
 LOGS_DIR="$BALET_DIR/logs"
 SERVERS_DIR="$BALET_DIR/servers"
+SSL_DIR="$BALET_DIR/ssl"
 TEMPLATES_DIR="$BALET_DIR/templates"
 HOSTS_FILE="/etc/hosts"
 
@@ -61,6 +62,17 @@ if [ -z $WEBSITE_RELATIVE_ROOT_DIR ]; then
   fi
 else
   WEBSITE_ROOT_DIR="$CURRENT_DIR/$WEBSITE_RELATIVE_ROOT_DIR"
+fi
+
+if [ "$WEBSITE_TYPE" == "html-ssl" ]; then
+  SSL_DH_PARAM_FILE="$SSL_DIR/dhparam.pem"
+
+  if [ ! -f $SSL_DH_PARAM_FILE ]; then
+    openssl dhparam -out $SSL_DH_PARAM_FILE 2048
+    echo "${CYAN}The new SSL DH parameters file is generated: $SSL_DH_PARAM_FILE${NC}"
+  fi
+
+  exit 1
 fi
 
 # Copy and configure the website template configuration file.
