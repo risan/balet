@@ -60,8 +60,10 @@ else
   ROOT_DIR="$CURRENT_DIR/$RELATIVE_ROOT_DIR"
 fi
 
-# Copy the website template configuration file.
-cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"
+# Copy and configure the website template configuration file.
+cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"                # Copy the configuration file.
+sed -i '' "s~ROOT_DIR~$ROOT_DIR~g" $WEBSITE_CONFIG_FILE           # Replace the root directory.
+sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE   # Replace the website name.
 
 echo $ROOT_DIR
 exit 1
