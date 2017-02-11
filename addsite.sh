@@ -24,6 +24,14 @@ if [ -z $WEBSITE_TYPE ]; then
   exit 1
 fi
 
+WEBSITE_TEMPLATE_FILE="$TEMPLATES_DIR/$WEBSITE_TYPE.dev"
+
+# Make sure that the template for the website type is exists.
+if [ ! -f $WEBSITE_TEMPLATE_FILE ]; then
+  echo "${RED}The website configuration template for type $WEBSITE_TYPE is not exists: $WEBSITE_TEMPLATE_FILE${NC}"
+  exit 1
+fi
+
 # Make sure that the website name is set.
 if [ -z $WEBSITE_NAME ]; then
   echo "${RED}The website-name argument is required!${NC}"
