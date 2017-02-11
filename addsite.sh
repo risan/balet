@@ -13,8 +13,9 @@ RELATIVE_ROOT_DIR="$3"  # The relative path to the root directory.
 
 CURRENT_DIR="$PWD"
 BALET_DIR="`dirname $0`"
-TEMPLATES_DIR="$BALET_DIR/templates"
+LOGS_DIR="$BALET_DIR/logs"
 SERVERS_DIR="$BALET_DIR/servers"
+TEMPLATES_DIR="$BALET_DIR/templates"
 HOSTS_FILE="/etc/hosts"
 
 # Make sure that the website type is set.
@@ -40,6 +41,7 @@ if [ -z $WEBSITE_NAME ]; then
 fi
 
 WEBSITE_CONFIG_FILE="$SERVERS_DIR/$WEBSITE_NAME"
+WEBSITE_ERROR_LOG_FILE="$LOGS_DIR/$WEBSITE_NAME-error.log"
 
 # Check if the webiste configuration file is already exist.
 if [ -f $WEBSITE_CONFIG_FILE ]; then
@@ -61,13 +63,14 @@ else
 fi
 
 # Copy and configure the website template configuration file.
-cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"                # Copy the configuration file.
-sed -i '' "s~ROOT_DIR~$ROOT_DIR~g" $WEBSITE_CONFIG_FILE           # Replace the root directory.
-sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE   # Replace the website name.
+cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"
+sed -i '' "s~ROOT_DIR~$ROOT_DIR~g" $WEBSITE_CONFIG_FILE
+sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
+sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
 
 # Update the hosts file.
 sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE  # Remove the domain if any.
 echo "127.0.0.1 $WEBSITE_NAME" >> $HOSTS_FILE       # Add the domain to the hosts file.
 
-echo $ROOT_DIR
-exit 1
+# Reload nginx.
+nginx -s reload

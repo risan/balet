@@ -5,7 +5,7 @@ server {
     server_name WEBSITE_NAME;
 
     access_log off;
-    error_log logs/WEBSITE_NAME-error.log;
+    error_log WEBSITE_ERROR_LOG_FILE;
 
     index index.html index.htm;
 
