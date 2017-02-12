@@ -10,9 +10,10 @@ server {
     root WEBSITE_ROOT_DIR;
     server_name WEBSITE_NAME;
 
-    include conf.d/directive-only/ssl.conf;
+    include CONFIGURATIONS_DIR/directive-only/ssl.conf;
     ssl_certificate WEBSITE_SSL_CERTIFICATE_FILE;
     ssl_certificate_key WEBSITE_SSL_PRIVATE_KEY_FILE;
+    ssl_dhparam SSL_DIR/dhparam.pem;
 
     access_log off;
     error_log WEBSITE_ERROR_LOG_FILE;
