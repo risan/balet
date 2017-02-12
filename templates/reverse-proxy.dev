@@ -11,5 +11,5 @@ server {
     }
 
     include conf.d/basic.conf;
-    include conf.d/location/reverse-proxy.conf
+    include conf.d/location/reverse-proxy.conf;
 }

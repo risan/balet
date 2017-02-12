@@ -8,9 +8,10 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 # Command arguments.
-WEBSITE_TYPE="$1"       # Website type: html, html-ssl, php, php-ssl.
-WEBSITE_NAME="$2"       # The website domain.
+WEBSITE_TYPE="$1"               # Website type: html, html-ssl, php, php-ssl.
+WEBSITE_NAME="$2"               # The website domain.
 WEBSITE_RELATIVE_ROOT_DIR="$3"  # The relative path to the root directory.
+PROXY_PORT="$3"                 # Reverse proxy port.
 
 CURRENT_DIR="$PWD"
 BALET_DIR="`dirname $0`"
@@ -23,7 +24,7 @@ HOSTS_FILE="/etc/hosts"
 # Make sure that the website type is set.
 if [ -z $WEBSITE_TYPE ]; then
   echo "${RED}The website-type argument is required!${NC}"
-  echo "${YELLOW}sh addsite.sh website-type website-name [website-root-dir]${NC}"
+  echo "${YELLOW}sh addsite.sh website-type website-name [website-root-dir | reverse-proxy-port]${NC}"
   exit 1
 fi
 
@@ -38,7 +39,11 @@ fi
 # Make sure that the website name is set.
 if [ -z $WEBSITE_NAME ]; then
   echo "${RED}The website-name argument is required!${NC}"
-  echo "${YELLOW}sh addsite.sh website-type website-name [website-root-dir]${NC}"
+  if [ "$WEBSITE_TYPE" == "reverse-proxy" ]; then
+    echo "${YELLOW}sh addsite.sh $WEBSITE_TYPE website-name [reverse-proxy-port]${NC}"
+  else
+    echo "${YELLOW}sh addsite.sh $WEBSITE_TYPE website-name [website-root-dir]${NC}"
+  fi
   exit 1
 fi
 
@@ -62,6 +67,14 @@ if [ -z $WEBSITE_RELATIVE_ROOT_DIR ]; then
   fi
 else
   WEBSITE_ROOT_DIR="$CURRENT_DIR/$WEBSITE_RELATIVE_ROOT_DIR"
+fi
+
+# Make sure that the reverse proxy port is not empty.
+if [ "$WEBSITE_TYPE" == "reverse-proxy" ]; then
+  if [ -z $PROXY_PORT ]; then
+    # If none given, set the proxy port number to 3000.
+    PROXY_PORT="3000"
+  fi
 fi
 
 # Generating certificate files.
@@ -103,9 +116,16 @@ fi
 # Copy and configure the website template configuration file.
 echo "${CYAN}Creating website configuration file for: $WEBSITE_NAME...${NC}"
 cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"
-sed -i '' "s~WEBSITE_ROOT_DIR~$WEBSITE_ROOT_DIR~g" $WEBSITE_CONFIG_FILE
 sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
+
+if [ "$WEBSITE_TYPE" == "reverse-proxy" ]; then
+  # Replace the proxy port number.
+  sed -i '' "s/PROXY_PORT/$PROXY_PORT/g" $WEBSITE_CONFIG_FILE
+else
+  # Replace the website root directory.
+  sed -i '' "s~WEBSITE_ROOT_DIR~$WEBSITE_ROOT_DIR~g" $WEBSITE_CONFIG_FILE
+fi
 
 # Update the certificate and private key file.
 if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ]; then
