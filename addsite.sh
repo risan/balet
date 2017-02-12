@@ -25,7 +25,14 @@ HOSTS_FILE="/etc/hosts"
 # Make sure that the website type is set.
 if [ -z $WEBSITE_TYPE ]; then
   echo "${RED}The website-type argument is required!${NC}\n"
-  echo "${YELLOW}balet add website-type website-name [website-root-dir | reverse-proxy-port]${NC}"
+  echo "${YELLOW}balet add website-type domain [root-dir | port]\n${NC}"
+  echo "${YELLOW}[website-type]${NC}"
+  echo "${YELLOW}- html: HTML website type.${NC}"
+  echo "${YELLOW}- html-ssl: HTML website with SSL type.${NC}"
+  echo "${YELLOW}- php: PHP website type.${NC}"
+  echo "${YELLOW}- php-ssl: PHP website with SSL type.${NC}"
+  echo "${YELLOW}- reverse-proxy: Reverse proxy server type.${NC}"
+  echo "${YELLOW}- reverse-proxy-ssl: Reverse proxy server with SSL type.${NC}"
   exit 1
 fi
 
