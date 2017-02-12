@@ -13,4 +13,5 @@ server {
 
     include CONFIGURATIONS_DIR/directive-only/x-ua-compatible.conf;
     include CONFIGURATIONS_DIR/location/protect-system-files.conf;
+    include CONFIGURATIONS_DIR/location/php-fpm.conf;
 }
