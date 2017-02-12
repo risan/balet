@@ -139,11 +139,11 @@ fi
 
 # Update the hosts file.
 echo "${CYAN}Updating the hosts file...${NC}"
-sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE  # Remove the domain if any.
-echo "127.0.0.1 $WEBSITE_NAME" >> $HOSTS_FILE       # Add the domain to the hosts file.
+sudo sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE  # Remove the domain if any.
+sudo echo "127.0.0.1 $WEBSITE_NAME" >> $HOSTS_FILE       # Add the domain to the hosts file.
 
 # Reload nginx.
 echo "${CYAN}Restarting the Nginx server...${NC}"
-nginx -s reload
+sudo nginx -s reload
 
 echo "${GREEN}The $WEBSITE_NAME website is created \xE2\x9C\x94${NC}"

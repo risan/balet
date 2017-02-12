@@ -48,11 +48,11 @@ rm "$WEBSITE_ERROR_LOG_FILE"
 
 # Remove from the trusted list.
 echo "${CYAN}Try removing the SSL certificate from the trusted list...${NC}"
-security remove-trusted-cert -d "$WEBSITE_SSL_CERTIFICATE_FILE"
+sudo security remove-trusted-cert -d "$WEBSITE_SSL_CERTIFICATE_FILE"
 
 # Remove certificate from keychain.
 echo "${CYAN}Try removing the SSL certificate from the keychain...${NC}"
-security delete-certificate -c "$WEBSITE_NAME" "$SYSTEM_KEYCHAIN_PATH"
+sudo security delete-certificate -c "$WEBSITE_NAME" "$SYSTEM_KEYCHAIN_PATH"
 
 # Remove certificate directory.
 echo "${CYAN}Removing website SSL directory...${NC}"
@@ -60,11 +60,11 @@ rm -Rf "$WEBSITE_SSL_DIR"
 
 # Remove the domain from the hosts file.
 echo "${CYAN}Updating the hosts file...${NC}"
-sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE
+sudo sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE
 
 # Reload nginx.
 echo "${CYAN}Restarting the Nginx server...${NC}"
-nginx -s reload
+sudo nginx -s reload
 
 # Goodbye message.
 echo "${GREEN}The $WEBSITE_NAME website is removed \xE2\x9C\x94${NC}"

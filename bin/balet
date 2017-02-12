@@ -22,10 +22,10 @@ fi
 
 # Add new website.
 if [ "$COMMAND_TYPE" == "add" ]; then
-  sh "$BALET_DIR/addsite.sh" $2 $3 $4
+  sudo sh "$BALET_DIR/addsite.sh" $2 $3 $4
 fi
 
 # Remove website.
 if [ "$COMMAND_TYPE" == "remove" ]; then
-  sh "$BALET_DIR/removesite.sh" $2
+  sudo sh "$BALET_DIR/removesite.sh" $2
 fi
