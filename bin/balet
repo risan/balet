@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Colors.
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+BALET_BIN_DIR="`dirname $0`"
+BALET_DIR="`dirname $BALET_BIN_DIR`"
+
+COMMAND_TYPE="$1"
+
+# Make sure the command type is valid.
+if [ "$COMMAND_TYPE" != "add" ] && [ "$COMMAND_TYPE" != "remove" ]; then
+  echo -e "${RED}The balet command-type argument is invalid!\n${NC}"
+  echo -e "${YELLOW}balet [command-type] [options]\n${NC}"
+  echo -e "${YELLOW}[command-type]${NC}"
+  echo -e "${YELLOW}- add: Add new Nginx website configuration.${NC}"
+  echo -e "${YELLOW}- remove: Remove Nginx website configuration.${NC}"
+  exit 1
+fi
+
+# Add new website.
+if [ "$COMMAND_TYPE" == "add" ]; then
+  sh "$BALET_DIR/addsite.sh" $2 $3 $4
+fi
+
+# Remove website.
+if [ "$COMMAND_TYPE" == "remove" ]; then
+  sh "$BALET_DIR/removesite.sh" $2
+fi
