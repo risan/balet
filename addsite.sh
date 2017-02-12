@@ -40,7 +40,7 @@ fi
 # Make sure that the website name is set.
 if [ -z $WEBSITE_NAME ]; then
   echo "${RED}The website-name argument is required!${NC}"
-  if [ "$WEBSITE_TYPE" == "reverse-proxy" ]; then
+  if [ "$WEBSITE_TYPE" == "reverse-proxy" ] || [ "$WEBSITE_TYPE" == "reverse-proxy-ssl" ]; then
     echo "${YELLOW}sh addsite.sh $WEBSITE_TYPE website-name [reverse-proxy-port]${NC}"
   else
     echo "${YELLOW}sh addsite.sh $WEBSITE_TYPE website-name [website-root-dir]${NC}"
@@ -79,7 +79,7 @@ if [ "$WEBSITE_TYPE" == "reverse-proxy" ]; then
 fi
 
 # Generating certificate files.
-if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ]; then
+if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ] || [ "$WEBSITE_TYPE" == "reverse-proxy-ssl" ]; then
   SYSTEM_KEYCHAIN_PATH="/Library/Keychains/System.keychain"
   SSL_DH_PARAM_FILE="$SSL_DIR/dhparam.pem"
   WEBSITE_SSL_DIR="$SSL_DIR/$WEBSITE_NAME"
@@ -121,7 +121,7 @@ sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~CONFIGURATIONS_DIR~$CONFIGURATIONS_DIR~g" $WEBSITE_CONFIG_FILE
 
-if [ "$WEBSITE_TYPE" == "reverse-proxy" ]; then
+if [ "$WEBSITE_TYPE" == "reverse-proxy" ] || [ "$WEBSITE_TYPE" == "reverse-proxy-ssl" ]; then
   # Replace the proxy port number.
   sed -i '' "s/PROXY_PORT/$PROXY_PORT/g" $WEBSITE_CONFIG_FILE
 else
@@ -130,7 +130,7 @@ else
 fi
 
 # Update the certificate, private key, and dhparam files.
-if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ]; then
+if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ] || [ "$WEBSITE_TYPE" == "reverse-proxy-ssl" ]; then
   sed -i '' "s~WEBSITE_SSL_CERTIFICATE_FILE~$WEBSITE_SSL_CERTIFICATE_FILE~g" $WEBSITE_CONFIG_FILE
   sed -i '' "s~WEBSITE_SSL_PRIVATE_KEY_FILE~$WEBSITE_SSL_PRIVATE_KEY_FILE~g" $WEBSITE_CONFIG_FILE
   sed -i '' "s~SSL_DIR~$SSL_DIR~g" $WEBSITE_CONFIG_FILE
