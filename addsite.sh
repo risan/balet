@@ -15,6 +15,7 @@ PROXY_PORT="$3"                 # Reverse proxy port.
 
 CURRENT_DIR="$PWD"
 BALET_DIR="`dirname $0`"
+CONFIGURATIONS_DIR="$BALET_DIR/configurations"
 LOGS_DIR="$BALET_DIR/logs"
 SERVERS_DIR="$BALET_DIR/servers"
 SSL_DIR="$BALET_DIR/ssl"
@@ -118,6 +119,7 @@ echo "${CYAN}Creating website configuration file for: $WEBSITE_NAME...${NC}"
 cp "$WEBSITE_TEMPLATE_FILE" "$WEBSITE_CONFIG_FILE"
 sed -i '' "s/WEBSITE_NAME/$WEBSITE_NAME/g" $WEBSITE_CONFIG_FILE
 sed -i '' "s~WEBSITE_ERROR_LOG_FILE~$WEBSITE_ERROR_LOG_FILE~g" $WEBSITE_CONFIG_FILE
+sed -i '' "s~CONFIGURATIONS_DIR~$CONFIGURATIONS_DIR~g" $WEBSITE_CONFIG_FILE
 
 if [ "$WEBSITE_TYPE" == "reverse-proxy" ]; then
   # Replace the proxy port number.
@@ -127,10 +129,11 @@ else
   sed -i '' "s~WEBSITE_ROOT_DIR~$WEBSITE_ROOT_DIR~g" $WEBSITE_CONFIG_FILE
 fi
 
-# Update the certificate and private key file.
+# Update the certificate, private key, and dhparam files.
 if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ]; then
   sed -i '' "s~WEBSITE_SSL_CERTIFICATE_FILE~$WEBSITE_SSL_CERTIFICATE_FILE~g" $WEBSITE_CONFIG_FILE
   sed -i '' "s~WEBSITE_SSL_PRIVATE_KEY_FILE~$WEBSITE_SSL_PRIVATE_KEY_FILE~g" $WEBSITE_CONFIG_FILE
+  sed -i '' "s~SSL_DIR~$SSL_DIR~g" $WEBSITE_CONFIG_FILE
 fi
 
 # Update the hosts file.
