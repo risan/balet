@@ -22,9 +22,11 @@ SSL_DIR="$BALET_DIR/ssl"
 TEMPLATES_DIR="$BALET_DIR/templates"
 HOSTS_FILE="/etc/hosts"
 
-# Make sure that the website type is set.
-if [ -z $WEBSITE_TYPE ]; then
-  echo "${RED}The website-type argument is required!${NC}\n"
+WEBSITE_TEMPLATE_FILE="$TEMPLATES_DIR/$WEBSITE_TYPE.dev"
+
+# Make sure that the website type is valid.
+if [ -z $WEBSITE_TYPE ] || [ ! -f $WEBSITE_TEMPLATE_FILE ]; then
+  echo "${RED}The website-type argument is invalid!${NC}\n"
   echo "${YELLOW}balet add website-type domain [root-dir | port]\n${NC}"
   echo "${YELLOW}[website-type]${NC}"
   echo "${YELLOW}- html: HTML website type.${NC}"
@@ -36,21 +38,13 @@ if [ -z $WEBSITE_TYPE ]; then
   exit 1
 fi
 
-WEBSITE_TEMPLATE_FILE="$TEMPLATES_DIR/$WEBSITE_TYPE.dev"
-
-# Make sure that the template for the website type is exists.
-if [ ! -f $WEBSITE_TEMPLATE_FILE ]; then
-  echo "${RED}The website configuration template for type $WEBSITE_TYPE is not exists: $WEBSITE_TEMPLATE_FILE${NC}"
-  exit 1
-fi
-
 # Make sure that the website name is set.
 if [ -z $WEBSITE_NAME ]; then
-  echo "${RED}The website-name argument is required!${NC}"
+  echo "${RED}The domain argument is required!\n${NC}"
   if [ "$WEBSITE_TYPE" == "reverse-proxy" ] || [ "$WEBSITE_TYPE" == "reverse-proxy-ssl" ]; then
-    echo "${YELLOW}sh addsite.sh $WEBSITE_TYPE website-name [reverse-proxy-port]${NC}"
+    echo "${YELLOW}balet add $WEBSITE_TYPE domain [port]${NC}"
   else
-    echo "${YELLOW}sh addsite.sh $WEBSITE_TYPE website-name [website-root-dir]${NC}"
+    echo "${YELLOW}balet add $WEBSITE_TYPE domain [root-dir]${NC}"
   fi
   exit 1
 fi

@@ -19,8 +19,8 @@ SYSTEM_KEYCHAIN_PATH="/Library/Keychains/System.keychain"
 
 # Make sure that the website name is set.
 if [ -z $WEBSITE_NAME ]; then
-  echo "${RED}The website-name argument is required!${NC}"
-  echo "${YELLOW}sh removesite.sh website-name${NC}"
+  echo "${RED}The domain argument is required!\n${NC}"
+  echo "${YELLOW}balet remove domain${NC}"
   exit 1
 fi
 
