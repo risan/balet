@@ -7,10 +7,10 @@ server {
     error_log WEBSITE_ERROR_LOG_FILE;
 
     location / {
+        include CONFIGURATIONS_DIR/location/reverse-proxy.conf;
         proxy_pass http://localhost:PROXY_PORT;
     }
 
     include CONFIGURATIONS_DIR/directive-only/x-ua-compatible.conf;
     include CONFIGURATIONS_DIR/location/protect-system-files.conf;
-    include CONFIGURATIONS_DIR/location/reverse-proxy.conf;
 }
