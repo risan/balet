@@ -21,5 +21,6 @@ server {
         try_files $uri $uri/ =404;
     }
 
-    include conf.d/basic.conf;
+    include CONFIGURATIONS_DIR/directive-only/x-ua-compatible.conf;
+    include CONFIGURATIONS_DIR/location/protect-system-files.conf;
 }

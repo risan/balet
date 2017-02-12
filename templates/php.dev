@@ -11,6 +11,6 @@ server {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-    include conf.d/basic.conf;
-    include conf.d/location/php-fpm.conf;
+    include CONFIGURATIONS_DIR/directive-only/x-ua-compatible.conf;
+    include CONFIGURATIONS_DIR/location/protect-system-files.conf;
 }

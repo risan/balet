@@ -10,6 +10,7 @@ server {
         proxy_pass http://localhost:PROXY_PORT;
     }
 
-    include conf.d/basic.conf;
+    include CONFIGURATIONS_DIR/directive-only/x-ua-compatible.conf;
+    include CONFIGURATIONS_DIR/location/protect-system-files.conf;
     include conf.d/location/reverse-proxy.conf;
 }
