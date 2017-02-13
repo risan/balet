@@ -58,7 +58,7 @@ Once Balet is installed, you can easily create an environment for your website.
 balet add website-type domain [root-dir|port]
 ```
 
-### `website-type` Argument
+### The website-type Argument
 
 The `website-type` argument is required and may have the following value:
 
@@ -69,17 +69,17 @@ The `website-type` argument is required and may have the following value:
 - `reverse-proxy`: Create reverse proxy server
 - `reverse-proxy-ssl`: Create reverse proxy server with HTTPS protocol
 
-### `domain` Argument
+### The domain Argument
 
 The `domain` argument is a unique domain name for your development machine, e.g: `test.dev`, `website.dev`
 
-### `root-dir` Argument
+### The root-dir Argument
 
 The `root-dir` is an optional argument for `html`, `html-ssl`, `php`, and `php-ssl` websites. It's the the root directory for the website relative to the project directory.
 
 If the `root-dir` argument is not set, Balet will look for `public` and `html` directory within your project. If those directories are not found, the `root-dir` will be set to your project directory.
 
-### `port` Argument
+### The port Argument
 
 The `port` is an optional argument for `reverse-proxy` and `reverse-proxy-ssl` websites. It's the port number of your proxied application.
 
@@ -93,4 +93,4 @@ To remove a website using Balet, simply type the following command:
 balet remove domain
 ```
 
-`domain` is the only argument required, it the domain name of the website that needs to be removed.
+The `domain` is the only argument required, it's the domain name of the website that needs to be removed.
