@@ -13,10 +13,11 @@ Balet is opinionated and minimalist development environment for MacOS. It contai
 
 Before installing Balet, make sure you have installed all of the followings packages.
 
-1. [Oh My Zsh](http://ohmyz.sh) — Framework for managing Zsh terminal configurations
-2. [Homebrew](https://brew.sh) — The package manager for MacOS
-3. [Homebrew Nginx ](https://github.com/Homebrew/homebrew-nginx) — Install Nginx server with Homebrew
-4. [Homebrew PHP](https://github.com/Homebrew/homebrew-php) — Install PHP with Homebrew
+1. [Git](https://git-scm.com/book/en/v1/Getting-Started-Installing-Git#Installing-on-Mac) — Distributed version control system
+2. [Oh My Zsh](http://ohmyz.sh) — Framework for managing Zsh terminal configurations
+3. [Homebrew](https://brew.sh) — The package manager for MacOS
+4. [Homebrew Nginx ](https://github.com/Homebrew/homebrew-nginx) — Install Nginx server with Homebrew
+5. [Homebrew PHP](https://github.com/Homebrew/homebrew-php) — Install PHP with Homebrew
 
 ## Installation
 
