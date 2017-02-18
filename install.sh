@@ -10,6 +10,12 @@ NC='\033[0m'
 BALET_DIR="$HOME/.balet"
 ZSHRC_FILE="$HOME/.zshrc"
 
+# Make sure that the Git is installed.
+git --version 2>&1 > /dev/null || {
+  echo "${RED}Git is not installed on your computer.${NC}"
+  exit 1
+}
+
 # Make sure that the Balet is not installed.
 if [ -d "$BALET_DIR" ]; then
   echo "${RED}You already have Balet installed: $BALET_DIR${NC}"
