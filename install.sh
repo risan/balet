@@ -16,6 +16,12 @@ git --version 2>&1 > /dev/null || {
   exit 1
 }
 
+# Make sure that the Nginx is installed.
+nginx -v 2>&1 > /dev/null || {
+  echo "${RED}Nginx is not installed on your computer.${NC}"
+  exit 1
+}
+
 # Make sure that the Balet is not installed.
 if [ -d "$BALET_DIR" ]; then
   echo "${RED}You already have Balet installed: $BALET_DIR${NC}"
