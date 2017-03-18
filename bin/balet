@@ -12,11 +12,11 @@ COMMAND_TYPE="$1"
 
 # Make sure the command type is valid.
 if [ "$COMMAND_TYPE" != "add" ] && [ "$COMMAND_TYPE" != "remove" ]; then
-  echo -e "${RED}The balet command-type argument is invalid!\n${NC}"
-  echo -e "${YELLOW}balet [command-type] [options]\n${NC}"
-  echo -e "${YELLOW}[command-type]${NC}"
-  echo -e "${YELLOW}- add: Add new Nginx website configuration.${NC}"
-  echo -e "${YELLOW}- remove: Remove Nginx website configuration.${NC}"
+  printf "${RED}The balet command-type argument is invalid!\n${NC}"
+  printf "${YELLOW}balet [command-type] [options]\n${NC}"
+  printf "${YELLOW}[command-type]${NC}"
+  printf "${YELLOW}- add: Add new Nginx website configuration.${NC}"
+  printf "${YELLOW}- remove: Remove Nginx website configuration.${NC}"
   exit 1
 fi
 
