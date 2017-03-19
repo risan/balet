@@ -33,5 +33,5 @@ fi
 
 # Update Balet installation.
 if [ "$COMMAND_TYPE" == "update" ]; then
-  sudo sh "$BALET_DIR/update.sh" $2
+  sh "$BALET_DIR/update.sh" $2
 fi
