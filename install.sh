@@ -22,6 +22,12 @@ nginx -v 2>&1 > /dev/null || {
   exit 1
 }
 
+# Make sure that the dnsmasq is installed.
+dnsmasq -v 2>&1 > /dev/null || {
+  print "${RED}Dnsmasq is not installed on your computer.\n${NC}"
+  exit 1
+}
+
 # Make sure that the Balet is not installed.
 if [ -d "$BALET_DIR" ]; then
   print "${RED}You already have Balet installed: $BALET_DIR${NC}"
