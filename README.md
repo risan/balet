@@ -6,6 +6,7 @@ Balet is opinionated and minimalist development environment for MacOS. It contai
 
 * [Requirements](#requirements)
 * [Installation](#installation)
+* [Updating Installation](#updating-installation)
 * [ Creating Website](#creating-website)
 * [ Removing Website](#removing-website)
 
@@ -51,6 +52,16 @@ http {
 ```
 
 Replace the `YOUR_USER` with your own user account. If you are not sure about your user account name, Balet will also display what line to be added to your `nginx.conf` during completion.
+
+## Updating Installation
+
+To update your Balet installation, use the following `update` command:
+
+```bash
+balet update
+```
+
+This command will automatically update your Balet installation to the latest current version.
 
 ## Creating Website
 
