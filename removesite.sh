@@ -19,8 +19,8 @@ SYSTEM_KEYCHAIN_PATH="/Library/Keychains/System.keychain"
 
 # Make sure that the website name is set.
 if [ -z $WEBSITE_NAME ]; then
-  echo "${RED}The domain argument is required!\n${NC}"
-  echo "${YELLOW}balet remove domain${NC}"
+  printf "${RED}The domain argument is required!\n\n${NC}"
+  printf "${YELLOW}balet remove domain\n${NC}"
   exit 1
 fi
 
@@ -31,40 +31,40 @@ WEBSITE_SSL_CERTIFICATE_FILE="$WEBSITE_SSL_DIR/certificate.crt"
 
 # Check if the webiste configuration file is not exist.
 if [ ! -f $WEBSITE_CONFIG_FILE ]; then
-  echo "${RED}The configuration file for $WEBSITE_NAME is not exists: $WEBSITE_CONFIG_FILE${NC}"
+  printf "${RED}The configuration file for $WEBSITE_NAME is not exists: $WEBSITE_CONFIG_FILE\n${NC}"
   exit 1
 fi
 
 # Welcome message.
-echo "${CYAN}Removing $WEBSITE_NAME website...${NC}"
+printf "${CYAN}Removing $WEBSITE_NAME website...\n${NC}"
 
 # Delete the configuration file.
-echo "${CYAN}Removing website configuration...${NC}"
+printf "${CYAN}Removing website configuration...\n${NC}"
 rm "$WEBSITE_CONFIG_FILE"
 
 # Delete the error log file.
-echo "${CYAN}Removing website error log file...${NC}"
+printf "${CYAN}Removing website error log file...\n${NC}"
 rm "$WEBSITE_ERROR_LOG_FILE"
 
 # Remove from the trusted list.
-echo "${CYAN}Try removing the SSL certificate from the trusted list...${NC}"
+printf "${CYAN}Try removing the SSL certificate from the trusted list...\n${NC}"
 sudo security remove-trusted-cert -d "$WEBSITE_SSL_CERTIFICATE_FILE"
 
 # Remove certificate from keychain.
-echo "${CYAN}Try removing the SSL certificate from the keychain...${NC}"
+printf "${CYAN}Try removing the SSL certificate from the keychain...\n${NC}"
 sudo security delete-certificate -c "$WEBSITE_NAME" "$SYSTEM_KEYCHAIN_PATH"
 
 # Remove certificate directory.
-echo "${CYAN}Removing website SSL directory...${NC}"
+printf "${CYAN}Removing website SSL directory...\n${NC}"
 rm -Rf "$WEBSITE_SSL_DIR"
 
 # Remove the domain from the hosts file.
-echo "${CYAN}Updating the hosts file...${NC}"
+printf "${CYAN}Updating the hosts file...\n${NC}"
 sudo sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE
 
 # Reload nginx.
-echo "${CYAN}Restarting the Nginx server...${NC}"
+printf "${CYAN}Restarting the Nginx server...\n${NC}"
 sudo nginx -s reload
 
 # Goodbye message.
-echo "${GREEN}The $WEBSITE_NAME website is removed \xE2\x9C\x94${NC}"
+printf "${GREEN}The $WEBSITE_NAME website is removed \xE2\x9C\x94\n${NC}"
