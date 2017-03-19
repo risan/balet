@@ -7,8 +7,9 @@ Balet is opinionated and minimalist development environment for MacOS. It contai
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Updating Installation](#updating-installation)
-* [ Creating Website](#creating-website)
-* [ Removing Website](#removing-website)
+* [Creating Website](#creating-website)
+* [Removing Website](#removing-website)
+* [List Registered Websites](#list-registered-websites)
 
 ## Requirements
 
@@ -107,3 +108,11 @@ balet remove domain
 ```
 
 The `domain` is the only argument required, it's the domain name of the website that needs to be removed.
+
+## List Registered Websites
+
+To get a list of all registered websites on Balet, use the `list` command:
+
+```bash
+balet list
+```
