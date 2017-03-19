@@ -137,11 +137,6 @@ if [ "$WEBSITE_TYPE" == "html-ssl" ] || [ "$WEBSITE_TYPE" == "php-ssl" ] || [ "$
   sed -i '' "s~SSL_DIR~$SSL_DIR~g" $WEBSITE_CONFIG_FILE
 fi
 
-# Update the hosts file.
-printf "${CYAN}Updating the hosts file...\n${NC}"
-sudo sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE  # Remove the domain if any.
-sudo printf "127.0.0.1 $WEBSITE_NAME" >> $HOSTS_FILE       # Add the domain to the hosts file.
-
 # Reload nginx.
 printf "${CYAN}Restarting the Nginx server...\n${NC}"
 sudo nginx -s reload

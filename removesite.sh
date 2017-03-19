@@ -58,10 +58,6 @@ sudo security delete-certificate -c "$WEBSITE_NAME" "$SYSTEM_KEYCHAIN_PATH"
 printf "${CYAN}Removing website SSL directory...\n${NC}"
 rm -Rf "$WEBSITE_SSL_DIR"
 
-# Remove the domain from the hosts file.
-printf "${CYAN}Updating the hosts file...\n${NC}"
-sudo sed -i '' "/127.0.0.1 $WEBSITE_NAME/d" $HOSTS_FILE
-
 # Reload nginx.
 printf "${CYAN}Restarting the Nginx server...\n${NC}"
 sudo nginx -s reload
