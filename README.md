@@ -17,7 +17,8 @@ Before installing Balet, make sure you have installed all of the followings pack
 2. [Oh My Zsh](http://ohmyz.sh) — Framework for managing Zsh terminal configurations
 3. [Homebrew](https://brew.sh) — The package manager for MacOS
 4. [Homebrew Nginx ](https://github.com/Homebrew/homebrew-nginx) — Install Nginx server with Homebrew
-5. [Homebrew PHP](https://github.com/Homebrew/homebrew-php) — Install PHP with Homebrew
+5. [Dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) — Lightweight DNS forwarder and DHCP server
+6. [Homebrew PHP](https://github.com/Homebrew/homebrew-php) — Install PHP with Homebrew
 
 ## Installation
 
