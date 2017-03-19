@@ -11,12 +11,13 @@ BALET_DIR="`dirname $BALET_BIN_DIR`"
 COMMAND_TYPE="$1"
 
 # Make sure the command type is valid.
-if [ "$COMMAND_TYPE" != "add" ] && [ "$COMMAND_TYPE" != "remove" ] && [ "$COMMAND_TYPE" != "update" ]; then
+if [ "$COMMAND_TYPE" != "add" ] && [ "$COMMAND_TYPE" != "remove" ] && [ "$COMMAND_TYPE" != "list" ] && [ "$COMMAND_TYPE" != "update" ]; then
   printf "${RED}The balet command-type argument is invalid!\n\n${NC}"
   printf "${YELLOW}balet [command-type] [options]\n\n${NC}"
   printf "${YELLOW}[command-type]\n${NC}"
   printf "${YELLOW}- add: Add new Nginx website configuration.\n${NC}"
   printf "${YELLOW}- remove: Remove Nginx website configuration.\n${NC}"
+  printf "${YELLOW}- list: List all registered websites.\n${NC}"
   printf "${YELLOW}- update: Update Balet installation.\n${NC}"
   exit 1
 fi
@@ -29,6 +30,11 @@ fi
 # Remove website.
 if [ "$COMMAND_TYPE" == "remove" ]; then
   sudo sh "$BALET_DIR/removesite.sh" $2
+fi
+
+# List all registered websites.
+if [ "$COMMAND_TYPE" == "list" ]; then
+  sh "$BALET_DIR/list.sh" $2
 fi
 
 # Update Balet installation.
